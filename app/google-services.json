@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "826233014592",
+    "firebase_url": "https://homes-8693e.firebaseio.com",
+    "project_id": "homes-8693e",
+    "storage_bucket": "homes-8693e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826233014592:android:5bb22567eba6d266",
+        "android_client_info": {
+          "package_name": "com.jackoyee.geopics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826233014592-oek9h7q28kq1s7vjojv2hseke8lm1j3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jackoyee.geopics",
+            "certificate_hash": "48fc318cb4be4041ef6bf4040f10b90b2be61170"
+          }
+        },
+        {
+          "client_id": "826233014592-128fvv5ghbpcnarqb7dbvq2pku2g3ihc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk1PNJStb-kcuCfm1y65KsI1-JFli31fY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826233014592-128fvv5ghbpcnarqb7dbvq2pku2g3ihc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

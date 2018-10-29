@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Geo Connect</string>
+    <string name="Texts">Include some notes here</string>
+    <string name="latitude_Infor">Latitude is:</string>
+    <string name="longitude_Infor">Longitude is:</string>
+    <string name="enter_image_name">enter image name</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
