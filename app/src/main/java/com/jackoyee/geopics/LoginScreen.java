@@ -1,220 +1,163 @@
 package com.jackoyee.geopics;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.DrawableWrapper;
-import android.support.annotation.NonNull;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.jackoyee.geopics.accounts.Data;
+import com.jackoyee.geopics.accounts.LoginResponse;
 
-public class LoginScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import com.jackoyee.geopics.network.RetrofitClient;
 
-    private static final String TAG = "LoginScreen";
+import cz.msebera.android.httpclient.concurrent.Cancellable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LoginScreen extends AppCompatActivity {
+
+   private static final String TAG = "LoginScreen";
 
    private Button btn ;
    private TextView link;
-   private   EditText pass,email;
+   private   EditText pass,emailaddress;
 
-   private DatabaseReference databaseReference;
-   private FirebaseAuth mfirebaseAuth;
-
-
-    private DrawerLayout drawer;
-    private ActionBarDrawerToggle toggle;
-
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mfirebaseAuth.getCurrentUser();
-//        updateUI(currentUser);
-//     }
-
-
+   private DrawerLayout drawer;
+   private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_window);
+        setContentView(R.layout.login_screen);
 
-
-//        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar=getSupportActionBar();
-//        assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-//
-//        drawer=(DrawerLayout)findViewById(R.id.drawer_layout);
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-
-        link=(TextView)findViewById(R.id.reLink);
-        email=(EditText)findViewById(R.id.emailAcc);
+        emailaddress=(EditText)findViewById(R.id.uname);
         pass=(EditText)findViewById(R.id.EPass);
-
         btn=(Button)findViewById(R.id.LognBtn);
 
-        mfirebaseAuth=FirebaseAuth.getInstance();
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("Users");
-
 
     }
 
-    public void onclickSignIn(View view) {
+    public void userLogin(){
+        String username =emailaddress.getText().toString();
+        String password=pass.getText().toString();
 
-      switch (view.getId()){
-          case R.id.LognBtn:
-
-              String email_Str=email.getText().toString().trim();
-              String pass_Str=pass.getText().toString().trim();
-
-              if (!TextUtils.isEmpty(email_Str)&&!TextUtils.isEmpty(pass_Str)){
-
-                  mfirebaseAuth.signInWithEmailAndPassword(email_Str,pass_Str).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                      @Override
-                      public void onComplete(@NonNull Task<AuthResult> task) {
-
-                          if (task.isSuccessful()){
-
-                              checkIfUserExists();
-                          }
-                          else {
-                              Toast.makeText(LoginScreen.this,"Authentication Failed ",Toast.LENGTH_SHORT).show();
-                           }
-                       }
-
-                  })
-
-//                          .addOnFailureListener(new OnFailureListener() {
-//                      @Override
-//                      public void onFailure(@NonNull Exception e) {
-//
-//                          Toast.makeText(LoginScreen.this,"Authentication Failed ",Toast.LENGTH_SHORT).show();
-//                      }
-//                  })
-                  ;
-
-              }
-              else {
-                  Toast.makeText(LoginScreen.this,"Provide your credentials",Toast.LENGTH_SHORT).show();
-                  }
-
-              break;
-
-        case R.id.reLink:
-
-           startActivity(new Intent(LoginScreen.this,Registration.class));
-                break;
-
-
+        if (username.isEmpty()||password.isEmpty()){
+            Toast.makeText(this, "Fields Cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
         }
-    }
+     Call<LoginResponse> call = RetrofitClient
+             .getNetworkInstance()
+             .getApiService()
+             .userLogin(username,password);
 
-    private void checkIfUserExists() {
-
-        final String user_id=mfirebaseAuth.getCurrentUser().getUid();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(user_id)){
-                    startActivity(new Intent(LoginScreen.this,Dashboard.class));
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse  loginResponse=response.body();
+                int status = 0;
+                if (loginResponse != null) {
+                    status = loginResponse.getStatus();
+
+                    if (status==200){
+
+                        Log.d("status on Connect", String.valueOf(status));
+
+                        String session_key= loginResponse.getData().getCURRENT_SESSION_KEY();
+                        String my_name=loginResponse.getData().getNAME();
+                        String phone=loginResponse.getData().getPHONE_NUMBER();
+                        String username=loginResponse.getData().getUSERNAME();
+                        String user_email=loginResponse.getData().getEMAIL_ADDRESS();
+                        int user_id=loginResponse.getData().getUSER_ID();
+
+                        SharedPreferences sharedPreferences=getSharedPreferences("myData", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor=sharedPreferences.edit();
+
+                        editor.putString("session_key",session_key);
+                        editor.putString("my_name",my_name);
+                        editor.putString("phone",phone);
+                        editor.putString("username",username);
+                        editor.putInt("user_id",user_id);
+                        editor.putString("user_email",user_email);
+                        editor.commit();
+
+//                  Intent intent =new Intent(getApplicationContext(),InstallationActivity.class);
+//                  intent.putExtra("session_key",session_key);
+//                  intent.putExtra("my_name",my_name);
+
+                        startActivity(new Intent(LoginScreen.this,InstallationActivity.class));
+                    }
+                    else  if (status==403){ Toast.makeText(LoginScreen.this, "Wrong credentials.Please Retry!!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 else {
-                    Toast.makeText(LoginScreen.this,"Sorry! User Doesn't Exist or Account not yet Activated",Toast.LENGTH_SHORT).show();
-                     }
-               }
+                    Toast.makeText(LoginScreen.this, "Incorrect Network Host. "+response.message(), Toast.LENGTH_SHORT).show();
+                  }
+
+
+//                else {
+//                    Toast.makeText(LoginScreen.this, "Failed to login", Toast.LENGTH_SHORT).show();
+//                   }
+            }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(LoginScreen.this, "Network Error! " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
-          });
+        });
 
+    }
+
+    public  void onclickSignIn(View view){
+        switch (view.getId()){
+            case R.id.LognBtn:
+//                String username=email.getText().toString();
+//                String password=pass.getText().toString();
+                userLogin();
+                break;
+        }
     }
 
     @Override
     public void onBackPressed() {
 
-        DrawerLayout drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.isDrawerOpen(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed();
-             }
-     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
-        return true;
-    }
+        AlertDialog.Builder  builder=new AlertDialog.Builder(LoginScreen.this);
+         builder.setTitle(R.string.app_name)
+                 .setMessage("Are You Sure You Want to Exit the Application")
+                 .setCancelable(false)
+                 .setIcon(R.mipmap.iconic)
+                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         finish();
+                     }
+                 })
+                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         dialogInterface.cancel();
+
+                     }
+                 });
+
+        AlertDialog alert = builder.create();
+        alert.show();
 
 
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.signmeup) {
-            startActivity(new Intent(LoginScreen.this,Registration.class));
-        }
-        else if (id == R.id.upload) {
-            startActivity(new Intent(LoginScreen.this,MainActivity.class));
-
-        } else if (id == R.id.checkConnection) {
-
-        } else if (id == R.id.nav_share) {
-
-        }
-        else if (id == R.id.nav_send) {
-
-        }else if (id == R.id.board) {
-            startActivity(new Intent(LoginScreen.this,Dashboard.class));
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
 

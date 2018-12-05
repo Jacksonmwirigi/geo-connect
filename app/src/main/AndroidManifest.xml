@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jackoyee.geopics">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,19 +17,21 @@
         android:roundIcon="@mipmap/iconic"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".splash.SplashScreen"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginScreen" />
-        <activity android:name=".Registration" />
+        <activity android:name=".InstallationActivity" />
+        <activity android:name=".LogOut"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.jackoyee.provider"
+            android:authorities="com.jackoyee.geopics"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -36,7 +39,13 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".Feedback" />
+        <activity android:name=".MainDash" />
+        <activity android:name=".BaseActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ViewTickets" />
+        <activity android:name=".Dashboard" />
+        <activity android:name=".LoginScreen"/>
     </application>
 
 </manifest>

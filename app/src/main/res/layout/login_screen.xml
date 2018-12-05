@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="4dp"
+    android:background="@drawable/backimage"
+    android:layout_height="match_parent"
+    tools:context="com.jackoyee.geopics.LoginScreen"
+    >
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="127dp"
+        android:gravity="center"
+        android:text="Username   "
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:id="@+id/uname"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="enter username"
+        android:inputType="text"
+        android:textColor="#000"
+
+        />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="227dp"
+        android:gravity="center"
+        android:text="Password"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:id="@+id/EPass"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="242dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="email password"
+        android:inputType="textPassword"
+        android:textColor="#000" />
+    <Button
+        android:id="@+id/LognBtn"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/textView9"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="176dp"
+        android:textSize="20sp"
+        android:textStyle="bold|normal"
+        android:background="@drawable/roundbutton"
+        android:onClick="onclickSignIn"
+        android:text=" LOGIN "
+        android:textColor="#000" />
+
+
+</RelativeLayout>

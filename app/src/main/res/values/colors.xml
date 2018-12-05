@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4ed164</color>
-    <color name="colorPrimaryDark">#020f45</color>
+    <color name="colorPrimary">#028E3A </color>
+    <color name="colorPrimaryDark">#009A3E</color>
     <color name="colorAccent">#FF4081</color>
     <color name="red">#f50c0c</color>
     <color name="colorMpya">#478e0c</color>
-    <color name="blue">#0d1d97</color>
+    <color name="blue">#040723</color>
     <color name="textColor">#4a2020</color>
     <color name="navBarcolor">#93caa0</color>
-    <color name="toobarcolor">#1d7c1d</color>
+    <color name="toobarcolor">#009A3E </color>
     <color name="backColor">#C0C0C0</color>
     <color name="greyyetu">#948b8b</color>
     <color name="rangidash">#51de7b</color>
-    <color name="green">#0e5809</color>
+    <color name="green">#51de7b </color>
     <color name="regColor">#1a1b1a</color>
  <!--cardView colors -->
     <color name="colorpry">#e74c3c</color>

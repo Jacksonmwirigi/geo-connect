@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group>
-        <item
-            android:id="@+id/my_text"
-            android:title=" Categories"
-            />
-    </group>
 
     <group android:id="@+id/group_menu">
-        <item android:id="@+id/signmeup"
-            android:title=" sign Up" />
-        <item android:id="@+id/upload"
-            android:title=" upload images" />
-        <item android:id="@+id/checkConnection"
-            android:title=" connected homes" />
+
         <item android:id="@+id/board"
-            android:title=" dashboard " />
+            android:title=" Dashboard"
+            android:icon="@drawable/h_dashboard_icon"/>
+        <item
+            android:id="@+id/ticket"
+            android:title=" Tickets"
+            android:icon="@drawable/h_assignment"
+            />
+        <item android:id="@+id/instals"
+            android:title="Installations"
+            android:icon="@drawable/h_router_icon"/>
+        <item android:id="@+id/customer_feedback"
+            android:title="Feedback"
+            android:icon="@drawable/h_feedback"/>
+
+        <item android:id="@+id/log_out"
+            android:icon="@drawable/h_chat_black_24dp"
+            android:title="Log Out" />
+
+
     </group>
-    <item android:title=" Communication">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
 
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-
-                android:title="Send" />
-        </menu>
-    </item>
 </menu>

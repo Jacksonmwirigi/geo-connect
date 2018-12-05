@@ -1,108 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backimage"
+    android:orientation="vertical"
     tools:context="com.jackoyee.geopics.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    <include layout="@layout/activity_dashboard"/>
 
-    <TextView
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/textColor"
-        android:id="@+id/myText"
-        android:text="Get Connected "
-        />
 
-    <ImageView
-        android:id="@+id/capturedImage"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/myText"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/pic" />
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
 
-    <EditText
-        android:id="@+id/notes"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/image_name"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/Texts"
-        android:inputType="text|textMultiLine"
-        android:textColorHint="@color/textColor"
-        android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/sendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/notes"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/textColor"
-        android:onClick="onClickAddUploadData"
-        android:text="Upload Data"
-        android:textColor="#fff" />
-
-    <TextView
-        android:id="@+id/lati"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/capturedImage"
-        android:layout_below="@+id/capturedImage"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="2dp"
-        android:text=" "
-        android:textColor="@color/red"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/image_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/sendBtn"
-        android:layout_below="@+id/longit"
-        android:layout_marginStart="9dp"
-        android:hint="@string/enter_image_name"
-        android:inputType="text"
-        android:textColor="#000"
-        android:textStyle="italic|normal" />
-
-    <TextView
-        android:id="@+id/longit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lati"
-        android:layout_alignBottom="@+id/lati"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:layout_toEndOf="@+id/sendBtn"
-        android:text=" "
-        android:textColor="@color/red"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/notes"
-        android:textSize="16sp"
-        android:textColor="#000"
-        android:layout_alignStart="@+id/capturedImage"
-        android:layout_marginBottom="3dp"
-        android:text="Image Name " />
-
-
-
-</RelativeLayout>
-
+</LinearLayout>
